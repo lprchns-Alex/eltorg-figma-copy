@@ -24,7 +24,7 @@
     return { errors, value: { customer, comment, items: Array.isArray(items) ? items.map(item => ({ id: item?.id, quantity: item?.quantity })) : [] } };
   }
   async function send(endpoint, payload, requestId, fetcher = root.fetch.bind(root)) {
-    if (!endpoint) throw new Error('Отправка заказов на почту ещё не подключена. Заказ не отправлен, товары остались в корзине. Свяжитесь с отделом запчастей: +7 (965) 089-46-99.');
+    if (!endpoint) throw new Error('Отправка заказов на почту ещё не подключена. Заказ не отправлен, товары остались в корзине. Свяжитесь с отделом запчастей: +7 (812) 089-46-99.');
     const response = await fetcher(endpoint, {
       method: 'POST', credentials: 'omit', headers: { 'Content-Type': 'application/json', 'Idempotency-Key': requestId },
       body: JSON.stringify(payload), signal: AbortSignal.timeout(30000)
