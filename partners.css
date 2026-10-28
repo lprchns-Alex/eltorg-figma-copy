@@ -1,0 +1,69 @@
+.partners-page { padding-bottom: 48px; }
+.partners-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 28px; }
+.partners-heading h1 { font-size: 40px; line-height: 1.2; }
+.partners-heading p { margin-top: 12px; color: var(--muted); font-size: 16px; }
+.partners-heading .button { flex-shrink: 0; }
+.partners-overview { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 36px; }
+.partners-equipment { width: 100%; height: auto; aspect-ratio: 2163 / 727; object-fit: contain; }
+.partners-services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 24px 0 0; list-style: none; }
+.partners-services li { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.partners-services svg { width: 22px; height: 22px; color: #667c7b; }
+.partners-contact { border-left: 1px solid var(--line); padding-left: 36px; }
+.partners-contact .section-index { font-size: 11px; margin-bottom: 12px; }
+.partners-contact h2 { font-size: 24px; line-height: 1.3; max-width: 300px; }
+.partners-contact p { color: var(--muted); font-size: 14px; line-height: 1.7; margin-top: 12px; max-width: 360px; }
+.partners-phone { display: inline-block; margin-top: 24px; font-size: 22px; line-height: 1.4; font-weight: 650; white-space: nowrap; }
+.partners-phone:hover { color: #667c7b; }
+.partners-contact-label { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+.partners-contact .button { margin-top: 20px; width: 100%; }
+.partner-footer-entry { display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px; padding: 0; font: inherit; color: var(--muted); white-space: nowrap; }
+.partner-footer-entry svg { width: 18px; height: 18px; }
+.footer-bottom:has(.partner-footer-entry) { align-items: center; gap: 24px; }
+.partner-header-entry { position: relative; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); color: var(--ink); margin-left: -16px; }
+.partner-header-entry:hover { color: var(--ink); background: var(--paper); }
+.partner-header-entry svg { width: 20px; height: 20px; }
+.partner-entry-tooltip { position: absolute; top: calc(100% + 8px); right: 0; z-index: 2; padding: 6px 10px; border-radius: 4px; background: var(--ink); color: white; font-size: 12px; line-height: 1.5; white-space: nowrap; visibility: hidden; opacity: 0; pointer-events: none; }
+.partner-header-entry:hover .partner-entry-tooltip, .partner-header-entry:focus-visible .partner-entry-tooltip { visibility: visible; opacity: 1; }
+.partner-dialog { width: min(440px, calc(100% - 32px)); }
+.partner-dialog .information-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 4px; background: #fff6d9; }
+.partner-dialog .information-icon svg { width: 22px; height: 22px; }
+.partner-dialog-close { position: absolute; top: 8px; right: 8px; }
+.partner-dialog h2 { margin-top: 24px; font-size: 26px; line-height: 1.3; }
+.partner-dialog p { margin-top: 16px; font-size: 14px; color: var(--muted); }
+.partner-dialog .button { width: 100%; margin-top: 24px; }
+.partner-dialog .text-link { display: flex; justify-content: center; margin-top: 12px; }
+@media (max-width: 1100px) {
+  .partners-overview { gap: 24px; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+  .partners-contact { padding-left: 24px; }
+  .partners-services { gap: 12px; }
+  .partners-services li { align-items: flex-start; gap: 8px; font-size: 13px; }
+  .footer-bottom:has(.partner-footer-entry) { flex-wrap: wrap; }
+}
+@media (max-width: 760px) {
+  .partners-heading { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .partners-heading h1 { font-size: 32px; }
+  .partners-overview { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .partners-contact { border-left: 0; border-top: 1px solid var(--line); padding: 24px 0 0; }
+  .partners-contact h2, .partners-contact p { max-width: none; }
+  .partners-contact .button { width: auto; display: flex; }
+  .partners-services { padding-top: 20px; }
+}
+@media (max-width: 700px) {
+  .partners-page { padding-bottom: 32px; }
+  .partners-heading p { font-size: 14px; max-width: 330px; }
+  .partners-heading .button { min-height: 44px; padding: 10px 16px; }
+  .partners-services li { flex-direction: column; font-size: 12px; gap: 10px; }
+  .partners-phone { margin-top: 20px; }
+  .footer-bottom:has(.partner-footer-entry) { align-items: flex-start; gap: 16px; }
+  .partner-footer-entry { min-height: 44px; }
+  .main-header .partner-header-entry { margin-left: 0; width: 44px; }
+  .partner-header-preview .main-header .brand { width: 174px; }
+}
+@media (max-width: 380px) {
+  .partners-services li { font-size: 11px; }
+  .partner-header-preview .main-header { column-gap: 4px; }
+  .partner-header-preview .main-header .brand { width: 150px; }
+  .partner-header-preview .main-header .brand-descriptor { font-size: 10px; }
+  .partner-header-preview .main-header .header-phone, .partner-header-preview .main-header .mobile-menu { width: 40px; }
+  .main-header .partner-header-entry { width: 40px; height: 40px; }
+}
