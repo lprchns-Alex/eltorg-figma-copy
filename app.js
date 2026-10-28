@@ -631,7 +631,7 @@ function productRecommendations(product) {
 }
 
 function deliveryMethods() {
-  return `<section class="detail-delivery"><h2>Способы доставки</h2><div class="detail-fulfillment"><div>${icon('map-pin')}<p><strong>Самовывоз</strong><span>Доступен в Москве и Санкт-Петербурге.</span></p></div><div>${icon('truck')}<p><strong>Транспортной компанией</strong><span>Бесплатно доставим вашу запчасть до терминала любой транспортной компании. Стоимость дальнейшей доставки зависит от условий выбранной вами ТК.</span></p></div></div></section>
+  return `<section class="detail-delivery"><h2>Способы доставки</h2><div class="detail-fulfillment"><div>${icon('map-pin')}<p><strong>Самовывоз</strong><span>Санкт-Петербург, Домостроительная, 16.</span></p></div><div>${icon('truck')}<p><strong>Транспортной компанией</strong><span>Бесплатно доставим вашу запчасть до терминала любой транспортной компании. Стоимость дальнейшей доставки зависит от условий выбранной вами ТК.</span></p></div></div></section>
     <section class="detail-delivery"><h2>Способы оплаты</h2><div class="detail-fulfillment"><div>${icon('file-text')}<p><strong>Безналичный расчёт</strong><span>По счёту для юридических лиц и ИП.</span></p></div><div>${icon('credit-card')}<p><strong>Картой или наличными</strong><span>Банковской картой или наличными денежными средствами.</span></p></div></div></section>`;
 }
 
@@ -927,12 +927,76 @@ photoDialog.addEventListener('keydown', event => {
   stepProductPhoto(event.key === 'ArrowRight' ? 1 : -1);
 });
 
+function informationHeading(page, title, description) {
+  return `${breadcrumbs([{ name: title }])}<header class="inner-heading information-heading"><h1>${title}</h1><p>${description}</p></header>
+    <nav class="information-nav" aria-label="Информация для покупателей"><a href="#about"${page === 'about' ? ' aria-current="page"' : ''}>О компании</a><a href="#contacts"${page === 'contacts' ? ' aria-current="page"' : ''}>Контакты</a><a href="#delivery"${page === 'delivery' ? ' aria-current="page"' : ''}>Доставка и оплата</a></nav>`;
+}
+
+function aboutPage() {
+  const principles = [
+    ['scan-line', 'Подбираем точно', 'По артикулу, фотографии или образцу. Уточняем модель и серийный номер техники.'],
+    ['badge-check', 'Проверяем совместимость', 'Согласуем исполнение и комплектацию детали до оформления заказа.'],
+    ['messages-square', 'Остаёмся на связи', 'Помогаем с выбором, наличием и условиями получения. От первого вопроса до заказа.'],
+  ];
+  const departments = ['engine', 'hydraulics', 'transmission', 'filters'];
+  return `<section class="container content-page information-page about-page">
+    ${informationHeading('about', 'О компании', 'Запчасти для спецтехники JCB. Подбор, консультация и помощь с заказом.')}
+    <section class="about-banner" aria-labelledby="about-brand-title"><picture><source media="(max-width:760px)" srcset="assets/machine-jcb-mobile-v3.png"><img src="assets/machine-jcb-v3.png" alt="Экскаватор-погрузчик JCB 4CX" width="2163" height="727" fetchpriority="high"></picture><div class="about-banner-copy"><h2 id="about-brand-title">Эльторг</h2><p>Детали имеют значение.<br>Особенно когда техника<br>должна работать.</p></div></section>
+    <section class="about-approach" aria-labelledby="about-approach-title"><div class="about-intro-copy"><span class="section-index">НАШ ПОДХОД</span><h2 id="about-approach-title">За каждой деталью стоит человек, который разберётся.</h2><p>Когда техника стоит, важна не просто запчасть. Важна уверенность, что она подойдёт.</p><p>Разбираемся в вашей задаче, проверяем совместимость и помогаем выбрать нужное исполнение. Для механика, владельца техники и отдела снабжения.</p><p>Помогаем найти нужную деталь для JCB и разобраться в её исполнении. От первого вопроса до получения заказа на связи с вами.</p></div><div class="about-principles" aria-label="Как мы работаем">${principles.map(([symbol, title, description]) => `<article><span class="information-icon">${icon(symbol)}</span><div><h3>${title}</h3><p>${description}</p></div></article>`).join('')}</div></section>
+    <section class="about-section" aria-labelledby="about-parts-title"><header class="about-section-heading"><div><span class="section-index">ЗАПЧАСТИ ДЛЯ JCB</span><h2 id="about-parts-title">От детали до узла</h2></div><a class="text-link" href="#catalog">Весь каталог${icon('arrow-right')}</a></header><div class="about-departments">${departments.map(id => {
+      const category = categories.find(item => item.id === id);
+      return `<a href="#catalog?category=${id}"><div><h3>${escapeHtml(category.name)}</h3><p>${escapeHtml(category.sub)}</p></div>${icon('arrow-up-right')}</a>`;
+    }).join('')}</div></section>
+    <section class="about-section" aria-labelledby="about-people-title"><header class="about-section-heading"><div><span class="section-index">ЛИЧНЫЙ КОНТАКТ</span><h2 id="about-people-title">Обсудим вашу задачу</h2><p class="about-section-note">Напрямую с отделом запчастей.</p></div><a class="text-link" href="https://t.me/EltorgJCB" target="_blank" rel="noopener">Написать в Telegram${icon('send')}</a></header><div class="about-people"><div class="contact-manager"><span class="information-icon">${icon('headset')}</span><div><h3>Отдел запчастей</h3><p>Запчасти и подбор</p><a href="tel:+78120894699">+7 (812) 089-46-99</a></div></div></div></section>
+    <section class="about-section" aria-labelledby="about-store-title"><header class="about-section-heading"><div><span class="section-index">САНКТ-ПЕТЕРБУРГ</span><h2 id="about-store-title">Магазин Эльторг</h2></div></header><div class="about-store"><div><p class="about-store-address">Домостроительная, 16</p><p>Перед поездкой уточните часы работы и наличие нужной детали.</p></div><div class="about-store-links"><a class="text-link" href="#contacts">Контакты и карта${icon('arrow-right')}</a><a class="text-link" href="#delivery">Доставка и оплата${icon('arrow-right')}</a></div></div></section>
+    <div class="information-help"><div><h2>Начнём с вашей детали</h2><p>Номер, фотография или описание. Остальное уточним вместе.</p></div><button class="button yellow" data-request="Подбор запчасти">Подобрать запчасть${icon('arrow-up-right')}</button></div>
+  </section>`;
+}
+
+function shopMap() {
+  // Zoom-12 OSM tiles; the fixed map anchor is the shop at 60.072751, 30.373307.
+  const tiles = [1187, 1188].flatMap(y => [2392, 2393, 2394].map(x => `<img src="assets/location-map/12-${x}-${y}.png" alt="" width="256" height="256">`)).join('');
+  return `<div class="contact-map" role="group" aria-label="Магазин на карте: Санкт-Петербург, Домостроительная, 16"><div class="contact-map-tiles" aria-hidden="true">${tiles}</div>
+    <a class="contact-map-marker" href="https://yandex.ru/maps/?rtext=~60.072751%2C30.373307&rtt=auto" target="_blank" rel="noopener" aria-label="Построить маршрут до магазина Эльторг">${icon('map-pin')}<span>ЭЛЬТОРГ<small>Домостроительная, 16</small></span></a>
+    <a class="contact-map-attribution" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></div>`;
+}
+
 function contacts() {
-  return `<section class="container content-page">${breadcrumbs([{ name: 'Контакты' }])}<div class="inner-heading"><span class="section-index">НА СВЯЗИ</span><h1>Давайте разберёмся в деталях.</h1><p>Приезжайте в магазин или свяжитесь с отделом запчастей.</p></div><div class="info-grid"><div><div class="contact-person"><a href="tel:+78120894699">+7 (812) 089-46-99</a><span>Отдел запчастей</span></div><div class="contact-socials"><a class="button dark" href="https://t.me/EltorgJCB" target="_blank" rel="noopener">Написать в Telegram${icon('send')}</a><a class="button outline" href="https://wa.me/79650894699" target="_blank" rel="noopener">WhatsApp${icon('message-circle')}</a></div></div><div class="address-panel">${icon('map-pin')}<span class="section-index">МАГАЗИН ЭЛЬТОРГ</span><h2>Санкт-Петербург,<br>Домостроительная, 16</h2><p>Перед поездкой уточните часы работы и наличие нужной детали по телефону.</p><a class="text-link" href="https://yandex.ru/maps/?text=Санкт-Петербург%20Домостроительная%2016" target="_blank" rel="noopener">Открыть на карте${icon('arrow-up-right')}</a></div></div></section>${contactBand()}`;
+  return `<section class="container content-page information-page">
+    ${informationHeading('contacts', 'Контакты', 'Свяжитесь с отделом запчастей или приезжайте в магазин.')}
+    <div class="contacts-layout">
+      <section class="contacts-team" aria-labelledby="contacts-team-title"><span class="section-index">НА СВЯЗИ С ВАМИ</span><h2 id="contacts-team-title">Отдел запчастей</h2><p class="information-lead">Поможем с подбором, проверим наличие и согласуем ваш заказ.</p>
+        <div class="contact-manager"><span class="information-icon">${icon('headset')}</span><div><h3>Отдел запчастей</h3><p>Запчасти и подбор</p><a href="tel:+78120894699">+7 (812) 089-46-99</a></div></div>
+        <div class="contacts-actions"><a class="button yellow" href="https://t.me/EltorgJCB" target="_blank" rel="noopener">Написать в Telegram${icon('send')}</a><button class="button outline" data-request="Обратный звонок">Обратный звонок${icon('phone')}</button></div>
+        <p class="contacts-preparation">Для точного подбора подготовьте артикул, фото детали или серийный номер техники.</p>
+      </section>
+      <section class="contacts-store" aria-labelledby="contacts-store-title"><span class="section-index">МАГАЗИН ЭЛЬТОРГ</span><h2 id="contacts-store-title">Санкт-Петербург</h2><p class="contacts-address">Домостроительная, 16</p>
+        ${shopMap()}
+        <div class="contacts-visit"><p>${icon('clock')}<span>Перед поездкой уточните часы работы и готовность заказа у менеджера.</span></p><a class="text-link" href="https://yandex.ru/maps/?rtext=~60.072751%2C30.373307&rtt=auto" target="_blank" rel="noopener">Построить маршрут${icon('arrow-up-right')}</a></div>
+      </section>
+    </div>
+  </section>`;
 }
 
 function delivery() {
-  return `<section class="container content-page">${breadcrumbs([{ name: 'Доставка и оплата' }])}<div class="inner-heading"><span class="section-index">ОТ ЗАЯВКИ ДО ПОЛУЧЕНИЯ</span><h1>Уточним. Подберём. Согласуем.</h1><p>Все условия подтверждаем с вами до оформления заказа.</p></div><div class="info-grid"><div class="info-block"><span class="section-index">01 / ПОДБОР</span><h2>Начнём с нужной детали</h2><p>Пришлите артикул, фотографию или серийный номер техники. Менеджер проверит совместимость, наличие и актуальную цену.</p><button class="button yellow" data-request="Подбор и условия получения">Обсудить заказ${icon('arrow-up-right')}</button></div><div class="info-block"><span class="section-index">02 / ПОЛУЧЕНИЕ</span><h2>Самовывоз из магазина</h2><p>Санкт-Петербург, Домостроительная, 16. Перед поездкой согласуйте готовность заказа. Возможность отправки в ваш город, сроки и стоимость доставки уточните у менеджера.</p><a class="text-link" href="#contacts">Адрес и контакты${icon('arrow-up-right')}</a></div><div class="info-block"><span class="section-index">03 / ОПЛАТА</span><h2>Условия под ваш заказ</h2><p>Способ оплаты, документы для организации и окончательную стоимость согласуем до покупки. На сайте оплата не требуется.</p></div><div class="info-block"><span class="section-index">04 / ПРОВЕРКА</span><h2>Совместимость имеет значение</h2><p>Детали могут отличаться в зависимости от года выпуска и комплектации техники. Серийный номер поможет исключить ошибку при подборе.</p></div></div></section>${assistance()}`;
+  return `<section class="container content-page information-page">
+    ${informationHeading('delivery', 'Доставка и оплата', 'Сначала подтвердим наличие и стоимость. Затем согласуем удобный способ получения и оплаты.')}
+    <section class="information-row" aria-labelledby="delivery-methods-title"><div class="information-row-heading"><span class="section-index">01 / ПОЛУЧЕНИЕ</span><h2 id="delivery-methods-title">Способы доставки</h2></div><div class="information-options">
+      <article class="information-option"><span class="information-icon">${icon('map-pin')}</span><h3>Самовывоз</h3><p>Забрать заказ в Санкт-Петербурге можно после подтверждения его готовности менеджером.</p><dl class="pickup-locations"><div><dt>Санкт-Петербург</dt><dd>Домостроительная, 16</dd></div></dl><a class="text-link" href="#contacts">Адрес и контакты${icon('arrow-right')}</a></article>
+      <article class="information-option"><span class="information-icon">${icon('truck')}</span><h3>Транспортной компанией</h3><p>Бесплатно доставим вашу запчасть до терминала любой транспортной компании.</p><p>Стоимость дальнейшей доставки зависит от условий выбранной вами ТК. Сроки и способ получения согласуем с менеджером.</p><p class="information-note">Бесплатно до терминала ТК. Дальнейшая доставка оплачивается отдельно.</p></article>
+    </div></section>
+    <section class="information-row" aria-labelledby="payment-methods-title"><div class="information-row-heading"><span class="section-index">02 / ОПЛАТА</span><h2 id="payment-methods-title">Способы оплаты</h2></div><div class="information-options">
+      <article class="information-option"><span class="information-icon">${icon('file-text')}</span><h3>Безналичный расчёт</h3><p>По счёту для юридических лиц и ИП. При оформлении укажите название организации или ФИО ИП и ИНН.</p><p>Менеджер подтвердит заказ и согласует выставление счёта.</p></article>
+      <article class="information-option"><span class="information-icon">${icon('credit-card')}</span><h3>Картой или наличными</h3><p>Банковской картой или наличными денежными средствами. Условия оплаты согласуйте с менеджером.</p><p class="information-note">Онлайн-оплаты на сайте нет.</p></article>
+    </div></section>
+    <section class="information-row" aria-labelledby="order-process-title"><div class="information-row-heading"><span class="section-index">03 / ЗАКАЗ</span><h2 id="order-process-title">Как всё происходит</h2></div><ol class="order-process"><li><span>01</span><h3>Оформите заказ</h3><p>Добавьте нужные запчасти в корзину и оставьте контактные данные.</p></li><li><span>02</span><h3>Дождитесь звонка</h3><p>Менеджер подтвердит наличие, цену и совместимость, уточнит оплату и доставку.</p></li><li><span>03</span><h3>Получите запчасти</h3><p>Заберите подтверждённый заказ самостоятельно или через транспортную компанию.</p></li></ol></section>
+    <section class="information-row information-faq" aria-labelledby="delivery-questions-title"><div class="information-row-heading"><h2 id="delivery-questions-title">Частые вопросы</h2></div><div>
+      <details><summary>Как узнать точную стоимость доставки?${icon('chevron-down')}</summary><p>Сообщите менеджеру город получения и выбранную транспортную компанию. Стоимость перевозки зависит от условий ТК; доставка до её терминала бесплатная.</p></details>
+      <details><summary>Когда можно приехать за заказом?${icon('chevron-down')}</summary><p>После подтверждения готовности заказа. Перед поездкой согласуйте с менеджером адрес выдачи и часы работы.</p></details>
+      <details><summary>Нужно ли платить при оформлении на сайте?${icon('chevron-down')}</summary><p>Нет. Сначала менеджер подтверждает заказ и согласует условия. Оплата на сайте не требуется.</p></details>
+    </div></section>
+    <div class="information-help"><div><h2>Остались вопросы?</h2><p>Обсудим получение, оплату и детали вашего заказа.</p></div><a class="button yellow" href="#contacts">Связаться с нами${icon('arrow-right')}</a></div>
+  </section>`;
 }
 
 function notFound() {
@@ -950,7 +1014,7 @@ function renderRoute() {
   cleanupPopularCarousel();
   const { page, params } = currentRoute();
   galleryIndex = 0;
-  main.innerHTML = page === 'catalog' ? catalog(params) : page === 'product' ? productPage(params) : page === 'cart' ? cartPage() : page === 'checkout' ? checkoutPage() : home();
+  main.innerHTML = page === 'catalog' ? catalog(params) : page === 'product' ? productPage(params) : page === 'cart' ? cartPage() : page === 'checkout' ? checkoutPage() : page === 'contacts' ? contacts() : page === 'delivery' ? delivery() : page === 'about' ? aboutPage() : page === 'partners' ? window.eltorgPartnersPage() : home();
   if (page === 'checkout') restoreCheckout();
   const cartFeedback = document.querySelector('.cart-feedback');
   if (cartFeedback) cartFeedback.hidden = true;
@@ -963,8 +1027,6 @@ function renderRoute() {
   initCategoryCards();
   initPopularCarousel();
   window.scrollTo({ top: 0, behavior: 'instant' });
-  const target = { about: '.company-section', delivery: '.contact-band', contacts: '.contact-band' }[page];
-  if (target) document.querySelector(target)?.scrollIntoView({ block: 'start', behavior: 'instant' });
 }
 
 function openRequest(subject, productId) {
@@ -1030,24 +1092,6 @@ document.addEventListener('click', event => {
     event.preventDefault();
     main.focus();
     main.scrollIntoView();
-    return;
-  }
-  const previewLink = event.target.closest('a[href^="#"]');
-  if (previewLink && previewLink.getAttribute('href') !== '#home') {
-    const destination = previewLink.getAttribute('href');
-    if (destination.startsWith('#product') || destination.startsWith('#catalog') || destination === '#cart' || destination === '#checkout') return;
-    if (currentRoute().page !== 'home') return;
-    event.preventDefault();
-    const href = previewLink.getAttribute('href');
-    const selector = href.startsWith('#catalog') || href.startsWith('#product')
-      ? '#parts-catalog'
-      : href === '#about'
-        ? '.company-section'
-        : href === '#contacts' || href === '#delivery'
-          ? '.contact-band'
-          : null;
-    const section = selector ? document.querySelector(selector) : null;
-    section?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
     return;
   }
   const requestButton = event.target.closest('[data-request]');
@@ -1182,9 +1226,9 @@ updateHeaderState();
 window.addEventListener('hashchange', () => {
   if (dialog.open) closeRequest();
   if (photoDialog.open) photoDialog.close();
-  if (!['home', 'catalog', 'product', 'cart', 'checkout'].includes(currentRoute().page)) history.replaceState(null, '', '#home');
+  if (!['home', 'catalog', 'product', 'cart', 'checkout', 'contacts', 'delivery', 'about', 'partners'].includes(currentRoute().page)) history.replaceState(null, '', '#home');
   renderRoute();
   main.focus({ preventScroll: true });
 });
-if (!['home', 'catalog', 'product', 'cart', 'checkout'].includes(currentRoute().page)) history.replaceState(null, '', '#home');
+if (!['home', 'catalog', 'product', 'cart', 'checkout', 'contacts', 'delivery', 'about', 'partners'].includes(currentRoute().page)) history.replaceState(null, '', '#home');
 renderRoute();
